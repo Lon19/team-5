@@ -24,3 +24,5 @@ htmlcov/
 
 #venv:
 backend/env/
+
+settings.json

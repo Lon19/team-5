@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, make_response, render_template, Blueprint
 from flask_restful import Api
 from flask_cors import CORS
+from resources.GetWardData import GetWardData
 
 
 app = Flask(__name__, static_folder='../static/dist', template_folder='../static')
@@ -10,6 +11,7 @@ api_bp = Blueprint('api', __name__)
 api = Api(api_bp)
 app.register_blueprint(api_bp)
 
+api.add_resource(GetWardData, '/GetWardData')
 
 
 
