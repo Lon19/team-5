@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span>{{paths}}</span>
+        <span>{{}}</span>
         <label>
         <gmap-autocomplete
           @place_changed="setPlace">
@@ -42,6 +42,7 @@ export default {
             center: { lat: 55.3781, lng: 3.4360 },
             places: [],
             zoom: 10,
+            test: [],
             markers: [
                 { Id: 4, name: "Berlin", position: { lat: 52.521248, lng: 13.399038 } },
                 { Id: 5, name: "Paris", position: { lat: 48.856127, lng: 2.346525 } }
@@ -101,6 +102,7 @@ export default {
 
     mounted() {
         this.geolocate();
+        this.returnCord();
     },
 
     methods: {
@@ -111,7 +113,6 @@ export default {
         grouped.forEach(function(item, i){
             let a = item.trim().split(',');
             alert(i);
-            console.log("ddd");
             finalData.push({
                 lng: parseFloat(a[0]),
                 lat: parseFloat(a[1])
@@ -122,8 +123,8 @@ export default {
     setPlace(place) {
       this.currentPlace = place;
     },
-    returnCord() {
-        this.paths = this.buildCoordinatesArrayFromString(this.exampleCord)
+    returnCord: function() {
+        this.test = this.buildCoordinatesArrayFromString(this.exampleCord);
     },
     addMarker() {
       if (this.currentPlace) {
