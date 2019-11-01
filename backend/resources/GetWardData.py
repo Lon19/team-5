@@ -27,4 +27,15 @@ class GetWardData(Resource):
                 'data': '',
             }
 
-        return jsonify(response)
+
+        dummy_data = {
+            'success': False,
+            'errors': '',
+            'data': {
+                'wardName': 'Middleton St George',
+                'long': '-1.47437',
+                'lat': '54.55521011',
+            },
+        }
+
+        return jsonify(dummy_data)
