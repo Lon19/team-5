@@ -1,4 +1,3 @@
-import requests
 import pandas as pd
 from pykml import parser
 
@@ -6,19 +5,6 @@ from pykml import parser
 KML_FILE = 'resources/Wards_December_2016_Full_Clipped_Boundaries_in_the_UK.kml'
 CSV_FILE = 'resources/data.csv'
 
-
-class FAILED_TO_FETCH_WARD_FROM_POSTCODE(Exception):
-    pass
-
-
-def postCodeToWard(postcode):
-    res = requests.get('https://api.postcodes.io/postcodes/'+postcode)
-    if res.ok:
-        ward_name = res.json()['result']['admin_ward'].lower()
-        return all_data[ward_name]
-    else:
-        raise FAILED_TO_FETCH_WARD_FROM_POSTCODE(
-            "ERROR "+str(res.status_code) + " " + res.json()['error'])
 
 
 def read_kml(fname):
@@ -83,21 +69,19 @@ def read_csv(fname):
 
 
 def combine_data(csv_data, kml_data):
-    skipped = 0
-    gathered = 0
-
+    to_delete = []
     for ward in csv_data:
         try:
+            csv_data[ward]['name'] = ward
             csv_data[ward]['long'] = str(kml_data[ward]['long'])
             csv_data[ward]['lat'] = str(kml_data[ward]['lat'])
             csv_data[ward]['coordinates'] = kml_data[ward]['coordinates']
-            gathered += 1
         except KeyError:
-            skipped += 1
+            to_delete.append(ward)
             pass
 
-    print(
-        f'Finished combining kml and csv data. Gathered= {gathered}. Skipped = {skipped}')
+    for ward in to_delete:
+        del csv_data[ward]
 
     return csv_data
 
