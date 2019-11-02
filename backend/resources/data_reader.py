@@ -1,9 +1,21 @@
 import pandas as pd
 from pykml import parser
 
+import requests
 
-KML_FILE = 'Wards_December_2016_Full_Clipped_Boundaries_in_the_UK.kml'
-CSV_FILE = 'data.csv'
+class FAILED_TO_FETCH_WARD_FROM_POSTCODE(Exception):
+    pass
+
+def postCodeToWard(postcode):
+    res = requests.get('https://api.postcodes.io/postcodes/'+postcode)
+    if res.ok:
+        ward_name = res.json()['result']['admin_ward'].lower()
+        return all_data[ward_name]
+    else:
+        raise FAILED_TO_FETCH_WARD_FROM_POSTCODE("ERROR "+str(res.status_code) + " " + res.json()['error'])
+
+KML_FILE = 'resources/Wards_December_2016_Full_Clipped_Boundaries_in_the_UK.kml'
+CSV_FILE = 'resources/data.csv'
 
 def read_kml(fname):
     root = parser.fromstring(open(fname, 'r').read().encode('utf-8'))
