@@ -18,9 +18,7 @@ class GetWardData(Resource):
             response = {
                 'success': True,
                 'errors': '',
-                'data': {
-                    wardName: wardData,
-                },
+                'data': wardData,
             }
         except KeyError:
             response = {
