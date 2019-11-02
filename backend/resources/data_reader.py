@@ -1,9 +1,9 @@
 import pandas as pd
 from pykml import parser
 
+
 KML_FILE = 'Wards_December_2016_Full_Clipped_Boundaries_in_the_UK.kml'
 CSV_FILE = 'data.csv'
-
 
 def read_kml(fname):
     root = parser.fromstring(open(fname, 'r').read().encode('utf-8'))
