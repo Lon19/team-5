@@ -57,9 +57,6 @@
             <v-btn large center color="primary"
                    v-on:click="getHighest(limit)">Get Highest
             </v-btn>
-            <v-btn large center color="primary"
-                   v-on:click="clear">Clear
-            </v-btn>
         </v-row>
 
 
@@ -104,10 +101,11 @@
         },
         methods: {
             getWardsByPostcode(postcode) {
+                this.clear();
                 axios
                     .get('http://127.0.0.1:5000/GetCoordinates', {
                         headers: {
-                            postCode: postcode,
+                            postCode: postcode.replace(/\s/g,''),
                             nearests: 500
                         }
                     })
@@ -134,6 +132,7 @@
                 this.paths = [];
             },
             getByWardName(wardName) {
+                this.clear();
                 axios
                     .get('http://127.0.0.1:5000/GetWardData', {
                         headers: {
@@ -154,10 +153,11 @@
             },
 
             getByUnemploymentRate(un) {
+                this.clear();
                 axios
                     .get('http://127.0.0.1:5000/GetWardsUnemployment', {
                         headers: {
-                            unemployment_number: un,
+                            unemployment_number: un.replace(/\s/g,''),
                             gender: this.radios
                         }
                     })
@@ -181,10 +181,11 @@
                     });
             },
             getHighest(limit) {
+                this.clear();
                 axios
                     .get('http://127.0.0.1:5000/GetHighest', {
                         headers: {
-                            limit: limit
+                            limit: limit.replace(/\s/g,''),
                         }
                     })
                     .then(response => {
@@ -213,7 +214,6 @@
 
                 grouped.forEach(function (item, i) {
                     let a = item.trim().split(',');
-
 
                     finalData.push({
                         lng: parseFloat(a[0]),
