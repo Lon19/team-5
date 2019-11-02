@@ -38,7 +38,18 @@ def read_kml(fname):
             for poly in p.Polygon:
                 coordinates += poly.outerBoundaryIs.LinearRing.coordinates
             kml_data[ward_name]['coordinates'] = coordinates
-            continue
+
+        # Format coordinates into JSON: {lng: -2.939954855992311, lat: 53.432519315680615}
+        pairs = kml_data[ward_name]['coordinates'].split(' ')
+        coordinates_objects = []
+        for pair in pairs:
+            splitted = pair.split(',')
+            entry = {
+                'lng': splitted[0],
+                'lat': splitted[1],
+            }
+            coordinates_objects.append(entry)
+        kml_data[ward_name]['coordinates'] = coordinates_objects
 
     return kml_data
 
