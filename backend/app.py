@@ -1,9 +1,10 @@
+import os
 from flask import Flask, request, jsonify, make_response, render_template, Blueprint
 from flask_restful import Api
 from flask_cors import CORS
 from resources.GetWardData import GetWardData
 from resources.GetCoordinates import GetCoordinates
-import os
+from resources.GetWards import GetWards
 
 
 
@@ -16,6 +17,7 @@ app.register_blueprint(api_bp)
 
 api.add_resource(GetWardData, '/GetWardData')
 api.add_resource(GetCoordinates, '/GetCoordinates')
+api.add_resource(GetWards, '/GetWards')
 
 
 

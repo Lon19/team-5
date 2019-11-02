@@ -42,9 +42,7 @@ def postCodeToWard(postcode, nearests=3):
             nearests_dist[-1] = candidate_dist
             nearests_names[-1] = ward
             nearests_names = [x for _,x in sorted(zip(nearests_dist, nearests_names))]
-            print(nearests_names)
             nearests_dist = sorted(nearests_dist)
-            print(nearests_dist)
 
     results = [all_data[name] for name in nearests_names]
     return results
