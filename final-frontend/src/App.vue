@@ -38,15 +38,15 @@
         </v-app-bar>
         <v-content>
             <CompanyGoogleMap />
-            <!-- <UserGoogleMap /> -->
-            <HelloWorld/>
+<!--            <UserGoogleMap />-->
+<!--            <HelloWorld/>-->
         </v-content>
     </v-app>
     </div>
 </template>
 
 <script>
-    import HelloWorld from './components/HelloWorld';
+    // import HelloWorld from './components/HelloWorld';
     // import UserGoogleMap from './components/UserGoogleMap';
     import CompanyGoogleMap from './components/CompanyGoogleMap';
 
@@ -55,7 +55,7 @@
         components: {
             // UserGoogleMap,
             CompanyGoogleMap,
-            HelloWorld,
+            //HelloWorld,
         },
         data: () => ({
             //
