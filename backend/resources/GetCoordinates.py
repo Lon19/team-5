@@ -31,6 +31,9 @@ def postCodeToWard(postcode, nearests=3):
         raise FAILED_TO_FETCH_WARD_FROM_POSTCODE(
             "ERROR "+str(res.status_code) + " " + res.json()['error'])
 
+    if ward_name not in all_data:
+        return False
+
     ward_point = [float(all_data[ward_name]['lat']), float(all_data[ward_name]['long'])]
     nearests_dist = [numpy.Infinity for _ in range(nearests)]
     nearests_names = ['' for _ in range(nearests)]
@@ -56,6 +59,9 @@ class GetCoordinates(Resource):
             post_code = request.headers.get('postCode')
             nearests = request.headers.get('nearests')
             data = postCodeToWard(post_code, int(nearests))
+
+            if not data:
+                raise FAILED_TO_FETCH_WARD_FROM_POSTCODE('Postcode not found in dataset.')
 
             response = {
                 'success': True,
