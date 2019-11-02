@@ -31,7 +31,7 @@
                 dark
         >
 
-            <v-toolbar-title>Movement To Work</v-toolbar-title>
+            <v-toolbar-title>Movement To Work : Unemployment Rate (UK) Dashboard</v-toolbar-title>
 
             <v-spacer></v-spacer>
 
