@@ -1,8 +1,6 @@
 <template>
     <div>
-        <div></div>
-        <h1></h1>
-        <h1>Unemployment Rate Between Wards</h1>
+
         <v-container grid-list-md text-xs-center>
             <v-layout row wrap>
                 <v-flex xs6>
@@ -33,31 +31,40 @@
                             label="Limit Highest >"
                     ></v-text-field>
                 </v-flex>
+                <p>Gender</p>
+                <v-radio-group v-model="radios" :mandatory="false">
+                    <v-radio label="Male" value="Male"></v-radio>
+                    <v-radio label="Female" value="Female"></v-radio>
+                    <v-radio label="Total" value="Total"></v-radio>
+                </v-radio-group>
             </v-layout>
         </v-container>
 
-        <v-btn large center color="primary"
-               v-on:click="getWardsByPostcode(postcode1)">Postcode
-        </v-btn>
 
-        <v-btn large center color="primary"
-               v-on:click="getByWardName(wardName)">Ward Name
-        </v-btn>
-        <v-btn large center color="primary"
-               v-on:click="getByUnemploymentRate(unemployemntRate)">Uneployment Rate
-        </v-btn>
-        <v-btn large center color="primary"
-               v-on:click="getHighest(limit)">Get Highest
-        </v-btn>
-        <v-btn large center color="primary"
-               v-on:click="clear">Clear
-        </v-btn>
-        <p>Gender</p>
-        <v-radio-group v-model="radios" :mandatory="false">
-            <v-radio label="Male" value="Male"></v-radio>
-            <v-radio label="Female" value="Female"></v-radio>
-            <v-radio label="Total" value="Total"></v-radio>
-        </v-radio-group>
+
+
+        <v-row style="justify-content: space-evenly">
+            <v-btn large center color="primary"
+                   v-on:click="getWardsByPostcode(postcode1)">Postcode
+            </v-btn>
+
+            <v-btn large center color="primary"
+                   v-on:click="getByWardName(wardName)">Ward Name
+            </v-btn>
+            <v-btn large center color="primary"
+                   v-on:click="getByUnemploymentRate(unemployemntRate)">Uneployment Rate
+            </v-btn>
+            <v-btn large center color="primary"
+                   v-on:click="getHighest(limit)">Get Highest
+            </v-btn>
+            <v-btn large center color="primary"
+                   v-on:click="clear">Clear
+            </v-btn>
+        </v-row>
+
+
+
+
 
         <gmap-map
                 :center="center"
@@ -219,11 +226,21 @@
                 return finalData;
             },
             decideColour(num) {
-                if (num < 100) {
-                    return {fillColor: '#6ec20b', fillOpacity: 0.5}
-                } else if (num > 100 && num < 150) {
-                    return {fillColor: '#c2b700', fillOpacity: 0.5}
-                } else {
+                if (num < 50) {
+                    return {fillColor: '#94949f', fillOpacity: 0.5}
+                } else if (num > 50 && num < 100) {
+                    return {fillColor: '#01e900', fillOpacity: 0.5}
+                }
+                else if (num > 100 && num < 150) {
+                    return {fillColor: '#168200', fillOpacity: 0.5}
+                }
+                else if (num > 150 && num < 200) {
+                    return {fillColor: '#e8e900', fillOpacity: 0.5}
+                }
+                else if (num > 200 && num < 300) {
+                    return {fillColor: '#e97600', fillOpacity: 0.5}
+                }
+                else {
                     return {fillColor: '#c20400', fillOpacity: 0.5}
                 }
             },
