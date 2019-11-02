@@ -84,7 +84,7 @@ def combine_data(csv_data, kml_data):
         try:
             csv_data[ward]['long'] = str(kml_data[ward]['long'])
             csv_data[ward]['lat'] = str(kml_data[ward]['lat'])
-            csv_data[ward]['coordinates'] = str(kml_data[ward]['coordinates'])
+            csv_data[ward]['coordinates'] = kml_data[ward]['coordinates']
             gathered += 1
         except KeyError:
             skipped += 1
