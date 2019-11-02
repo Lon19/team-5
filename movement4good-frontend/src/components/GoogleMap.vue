@@ -37,7 +37,8 @@
 
         mounted() {
            console.log("mounted");
-           this.getByWardName("heston central");
+           //this.getByWardName("heston central");
+           this.postcodeSearch("E143WF");
         },
 
         methods: {
@@ -54,14 +55,18 @@
                 var finalData = [];
                 var grouped = MultiGeometryCoordinates.split(" ");
 
+
                 grouped.forEach(function (item, i) {
                     let a = item.trim().split(',');
+
 
                     finalData.push({
                         lng: parseFloat(a[0]),
                         lat: parseFloat(a[1])
                     });
                 });
+                console.log(finalData,"TESTTT");
+
 
                 return finalData;
             },
@@ -69,23 +74,26 @@
                 axios
                     .get('http://127.0.0.1:5000/GetCoordinates', {
                         headers: {
-                            postCode: "TW59DA",
-                            nearests: 2
+                            postCode: "L40TH",
+                            nearests: 5
                         }
                     })
                     .then(response => {
                         let arrayResponse = response.data.data;
+                        console.log(arrayResponse);
                         arrayResponse.forEach(function (item) {
                             let cordsString = item.coordinates;
                             console.log(cordsString);
                             let position = this.buildCoordinatesArrayFromString(cordsString);
+                            console.log(position);
+
                             let options = this.decideColour(item.Total);
                             let name = item.name;
                             let temp = {
                                 name: name, position, options
                             };
                             this.paths.push(temp)
-                        });
+                        }.bind(this))
 
 
                     });
@@ -101,7 +109,7 @@
                         let jsonData = response.data.data.coordinates;
                         let options = this.decideColour(response.data.data.Total);
                         let position = this.buildCoordinatesArrayFromString(jsonData);
-                        //console.log(jsonData);
+                        //console.log(position,"ward NAME");
                         let temp = {
                             name: wardName, position, options
                         };
