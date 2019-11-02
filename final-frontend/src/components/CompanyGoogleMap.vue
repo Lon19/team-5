@@ -91,7 +91,7 @@
                 wardName: null,
                 unemployemntRate: null,
                 limit: null,
-                radios: null,
+                radios: "Total",
 
             }
         },
@@ -111,9 +111,8 @@
                             let cordsString = item.coordinates;
                             //console.log(cordsString);
                             let position = this.buildCoordinatesArrayFromString(cordsString);
-                            //console.log(position);
 
-                            let options = this.decideColour(item.Total);
+                            let options = this.decideColour(item[this.radios]);
                             let name = item.name;
                             let temp = {
                                 name: name, position, options
@@ -136,7 +135,7 @@
                     })
                     .then(response => {
                         let jsonData = response.data.data.coordinates;
-                        let options = this.decideColour(response.data.data.Total);
+                        let options = this.decideColour(response.data.data[this.radios]);
                         let position = this.buildCoordinatesArrayFromString(jsonData);
                         //console.log(position,"ward NAME");
                         let temp = {
@@ -164,7 +163,7 @@
                             let position = this.buildCoordinatesArrayFromString(cordsString);
                             //console.log(position);
 
-                            let options = this.decideColour(item.Total);
+                            let options = this.decideColour(item[this.radios]);
                             let name = item.name;
                             let temp = {
                                 name: name, position, options
@@ -190,7 +189,7 @@
                             let position = this.buildCoordinatesArrayFromString(cordsString);
                             //console.log(position);
 
-                            let options = this.decideColour(item.Total);
+                            let options = this.decideColour(item[this.radios]);
                             let name = item.name;
                             let temp = {
                                 name: name, position, options
