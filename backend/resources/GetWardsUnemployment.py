@@ -4,7 +4,7 @@ from .data_reader import all_data
 import json
 
 
-class GetWardData(Resource):
+class GetWardsUnemployment(Resource):
     def get(self):
         response = {
             'success': False,
@@ -13,12 +13,17 @@ class GetWardData(Resource):
         }
 
         try:
-            wardName = request.headers.get('wardName')
-            wardData = all_data[wardName.lower()]
+            unemployment_number = request.headers.get('unemployment_number')
+            gender = request.headers.get('gender') # Total, Male, Female
+            wards = []
+            for ward in all_data.keys():
+                if int(all_data[ward][gender]) > int(unemployment_number):
+                    wards.append(all_data[ward])
+
             response = {
                 'success': True,
                 'errors': '',
-                'data': wardData,
+                'data': wards,
             }
         except KeyError:
             response = {
