@@ -32,7 +32,7 @@ def postCodeToWard(postcode, nearests=3):
             "ERROR "+str(res.status_code) + " " + res.json()['error'])
 
     ward_point = [float(all_data[ward_name]['lat']), float(all_data[ward_name]['long'])]
-    nearests_dist = [100000000 for _ in range(nearests)]
+    nearests_dist = [numpy.Infinity for _ in range(nearests)]
     nearests_names = ['' for _ in range(nearests)]
     for ward in all_data.keys():
         candidate_point = [float(all_data[ward]['lat']), float(all_data[ward]['long'])]
