@@ -30,15 +30,15 @@
                 color=""
                 dark
         >
-            <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-            <v-toolbar-title>Page title</v-toolbar-title>
+            <v-toolbar-title>Movement To Work</v-toolbar-title>
 
             <v-spacer></v-spacer>
 
         </v-app-bar>
         <v-content>
-            <UserGoogleMap />
+            <CompanyGoogleMap />
+            <!-- <UserGoogleMap /> -->
             <HelloWorld/>
         </v-content>
     </v-app>
@@ -47,12 +47,14 @@
 
 <script>
     import HelloWorld from './components/HelloWorld';
-    import UserGoogleMap from './components/UserGoogleMap';
+    // import UserGoogleMap from './components/UserGoogleMap';
+    import CompanyGoogleMap from './components/CompanyGoogleMap';
 
     export default {
         name: 'App',
         components: {
-            UserGoogleMap,
+            // UserGoogleMap,
+            CompanyGoogleMap,
             HelloWorld,
         },
         data: () => ({

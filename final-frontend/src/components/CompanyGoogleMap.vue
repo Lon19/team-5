@@ -1,19 +1,22 @@
 <template>
     <div>
+        <div></div>
+        <h1></h1>
+        <h1>Highest Unemployment Rate Between Wards</h1>
         <v-container grid-list-md text-xs-center>
             <v-layout row wrap>
             <v-flex xs6>
                 <v-text-field
                 class="compact-form"
-                v-model="postcode"
-                label="Postcode"
+                v-model="postcode1"
+                label="Postcode One"
                 ></v-text-field>
             </v-flex>
             <v-flex xs6>
                 <v-text-field
                 class="compact-form"
-                v-model="ward"
-                label="Ward Name"
+                v-model="postcode2"
+                label="Postcode Two"
                 ></v-text-field>
             </v-flex>
             </v-layout>
@@ -29,49 +32,25 @@
 /* eslint-disable */
     import axios from 'axios'
 export default {
-    name: 'UserGoogleMap',
+    name: 'CompanyGoogleMap',
     data() {
         return {
-            lng: null,
-            lat: null,
-            postcode: null,
+            postcode1: null,
+            postcode2: null,
             ward: null,
             message: null,
         }
     },
     methods: {
-        checkWardOrPostCode: function() {
-            if (this.postcode != null) {
-                /* eslint-disable no-console */
-                console.log(this.postcode)
-                this.message = "Results for your postcode - " + this.postcode
-                this.postCode = null,
-                // api calls
-                alert(this.postcode)
-            } else {
-                this.message = "Results for your ward - " + this.ward
-                this.getWardData()    
-                this.ward = null
-            }
-        },
-        getWardData() {
-            axios
-                .get('http://127.0.0.1:5000/GetWardData', {
-                    headers: {
-                        wardName: this.ward
-                    }
-                })
-                .then(response => {
-                    /* eslint-disable no-console */
-                    console.log("calling @", response.data)
-                    return response.data
-                });
+        compareWards: function() {
+            
         },
         getPostCodeData() {
             axios
             .get('http://127.0.0.1:5000/GetCoordinates', {
                 headers: {
                     postCode: this.postCode,
+                    nearests: 5
                 }
             })
             .then(response => {
