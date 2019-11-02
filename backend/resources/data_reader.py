@@ -1,10 +1,15 @@
+import requests
 import pandas as pd
 from pykml import parser
 
-import requests
+
+KML_FILE = 'resources/Wards_December_2016_Full_Clipped_Boundaries_in_the_UK.kml'
+CSV_FILE = 'resources/data.csv'
+
 
 class FAILED_TO_FETCH_WARD_FROM_POSTCODE(Exception):
     pass
+
 
 def postCodeToWard(postcode):
     res = requests.get('https://api.postcodes.io/postcodes/'+postcode)
@@ -12,10 +17,9 @@ def postCodeToWard(postcode):
         ward_name = res.json()['result']['admin_ward'].lower()
         return all_data[ward_name]
     else:
-        raise FAILED_TO_FETCH_WARD_FROM_POSTCODE("ERROR "+str(res.status_code) + " " + res.json()['error'])
+        raise FAILED_TO_FETCH_WARD_FROM_POSTCODE(
+            "ERROR "+str(res.status_code) + " " + res.json()['error'])
 
-KML_FILE = 'resources/Wards_December_2016_Full_Clipped_Boundaries_in_the_UK.kml'
-CSV_FILE = 'resources/data.csv'
 
 def read_kml(fname):
     root = parser.fromstring(open(fname, 'r').read().encode('utf-8'))
@@ -39,17 +43,19 @@ def read_kml(fname):
                 coordinates += poly.outerBoundaryIs.LinearRing.coordinates
             kml_data[ward_name]['coordinates'] = coordinates
 
+
+        # USE THIS IN AN IDEAL WORLD
         # Format coordinates into JSON: {lng: -2.939954855992311, lat: 53.432519315680615}
-        pairs = kml_data[ward_name]['coordinates'].split(' ')
-        coordinates_objects = []
-        for pair in pairs:
-            splitted = pair.split(',')
-            entry = {
-                'lng': splitted[0],
-                'lat': splitted[1],
-            }
-            coordinates_objects.append(entry)
-        kml_data[ward_name]['coordinates'] = coordinates_objects
+        # pairs = kml_data[ward_name]['coordinates'].split(' ')
+        # coordinates_objects = []
+        # for pair in pairs:
+        #     splitted = pair.split(',')
+        #     entry = {
+        #         'lng': splitted[0],
+        #         'lat': splitted[1],
+        #     }
+        #     coordinates_objects.append(entry)
+        # kml_data[ward_name]['coordinates'] = coordinates_objects
 
     return kml_data
 
@@ -90,8 +96,8 @@ def combine_data(csv_data, kml_data):
             skipped += 1
             pass
 
-    print(f'Finished combining kml and csv data. Gathered= {gathered}. Skipped = {skipped}')
-
+    print(
+        f'Finished combining kml and csv data. Gathered= {gathered}. Skipped = {skipped}')
 
     return csv_data
 
