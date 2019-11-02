@@ -38,7 +38,7 @@
         mounted() {
            console.log("mounted");
            //this.getByWardName("heston central");
-           this.postcodeSearch("E143WF");
+           this.postcodeSearch("TW59DA");
         },
 
         methods: {
@@ -65,7 +65,7 @@
                         lat: parseFloat(a[1])
                     });
                 });
-                console.log(finalData,"TESTTT");
+                //console.log(finalData,"TESTTT");
 
 
                 return finalData;
@@ -74,18 +74,18 @@
                 axios
                     .get('http://127.0.0.1:5000/GetCoordinates', {
                         headers: {
-                            postCode: "L40TH",
+                            postCode: postcode,
                             nearests: 5
                         }
                     })
                     .then(response => {
                         let arrayResponse = response.data.data;
-                        console.log(arrayResponse);
+                        //console.log(arrayResponse);
                         arrayResponse.forEach(function (item) {
                             let cordsString = item.coordinates;
-                            console.log(cordsString);
+                            //console.log(cordsString);
                             let position = this.buildCoordinatesArrayFromString(cordsString);
-                            console.log(position);
+                            //console.log(position);
 
                             let options = this.decideColour(item.Total);
                             let name = item.name;
@@ -116,7 +116,8 @@
                         this.paths.push(temp)
 
                     });
-            }
+            },
+
 
 
         }
