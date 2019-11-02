@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, make_response, render_template, Bluep
 from flask_restful import Api
 from flask_cors import CORS
 from resources.GetWardData import GetWardData
+from resources.GetCoordinates import GetCoordinates
 
 
 app = Flask(__name__, static_folder='../static/dist', template_folder='../static')
@@ -12,6 +13,7 @@ api = Api(api_bp)
 app.register_blueprint(api_bp)
 
 api.add_resource(GetWardData, '/GetWardData')
+api.add_resource(GetCoordinates, '/GetCoordinates')
 
 
 
