@@ -3,6 +3,7 @@ from flask_restful import Resource
 from .data_reader import all_data
 import json
 
+
 class GetWardData(Resource):
     def get(self):
         response = {
@@ -12,8 +13,8 @@ class GetWardData(Resource):
         }
 
         try:
-            wardName = request.json.get('wardName')
-            wardData = all_data[wardName]
+            wardName = request.headers.get('wardName')
+            wardData = all_data[wardName.lower()]
             response = {
                 'success': True,
                 'errors': '',
@@ -34,4 +35,4 @@ class GetWardData(Resource):
                 'data': '',
             }
 
-        return jsonify(json.dumps(str(response)))
+        return jsonify(response)
