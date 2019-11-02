@@ -7,7 +7,7 @@ from resources.GetCoordinates import GetCoordinates
 from resources.GetWards import GetWards
 from resources.GetHighest import GetHighest
 from resources.GetAllData import GetAllData
-
+from resources.GetWardsUnemployment import GetWardsUnemployment
 
 
 app = Flask(__name__, static_folder='../static/dist', template_folder='../static')
@@ -20,6 +20,7 @@ app.register_blueprint(api_bp)
 api.add_resource(GetWardData, '/GetWardData')
 api.add_resource(GetCoordinates, '/GetCoordinates')
 api.add_resource(GetWards, '/GetWards')
+api.add_resource(GetWardsUnemployment, '/GetWardsUnemployment')
 api.add_resource(GetHighest, '/GetHighest')
 api.add_resource(GetAllData, '/GetAllData')
 
