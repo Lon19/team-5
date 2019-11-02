@@ -3,11 +3,13 @@ from flask_restful import Api
 from flask_cors import CORS
 from resources.GetWardData import GetWardData
 from resources.GetCoordinates import GetCoordinates
+import os
+
 
 
 app = Flask(__name__, static_folder='../static/dist', template_folder='../static')
 CORS(app)
-app.config['SECRET_KEY'] = 'the quick brown fox jumps over the lazy   dog'
+app.config['SECRET_KEY'] =  os.urandom(24)
 api_bp = Blueprint('api', __name__)
 api = Api(api_bp)
 app.register_blueprint(api_bp)
